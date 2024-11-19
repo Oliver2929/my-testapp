@@ -22,19 +22,19 @@ let UsersController = class UsersController {
         this.usersService = usersService;
     }
     async create(createUserDto) {
-        return this.usersService.create(createUserDto);
+        return await this.usersService.create(createUserDto);
     }
     async findAll() {
-        return this.usersService.findAll();
+        return await this.usersService.findAll();
     }
     asyncfindOne(id) {
         return this.usersService.findById(id);
     }
     async update(id, updateUserDto) {
-        return this.usersService.updateUser(id, updateUserDto);
+        return await this.usersService.updateUser(id, updateUserDto);
     }
     async delete(id) {
-        return this.usersService.deleteUser(id);
+        return await this.usersService.deleteUser(id);
     }
 };
 exports.UsersController = UsersController;

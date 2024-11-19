@@ -12,17 +12,17 @@ export class UsersService {
   //Create a new user
   async create(userDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(userDto);
-    return createdUser.save();
+    return await createdUser.save();
   }
 
   //Get all users
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return await this.userModel.find().exec();
   }
 
   //Get a user by ID
   async findById(id: string): Promise<User> {
-    return this.userModel.findById(id).exec();
+    return await this.userModel.findById(id).exec();
   }
 
   // Update a user
@@ -33,7 +33,7 @@ export class UsersService {
     }
 
     Object.assign(user, updateUserDto);
-    return user.save();
+    return await user.save();
   }
 
   // Delete a user

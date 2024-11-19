@@ -18,26 +18,26 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+    return await this.usersService.create(createUserDto);
   }
 
   @Get()
   async findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
-  asyncfindOne(@Param('id') id: string): Promise<User> {
-    return this.usersService.findById(id);
+  async findOne(@Param('id') id: string): Promise<User> {
+    return await this.usersService.findById(id);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateUser(id, updateUserDto);
+    return await this.usersService.updateUser(id, updateUserDto);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return this.usersService.deleteUser(id);
+    return await this.usersService.deleteUser(id);
   }
 }

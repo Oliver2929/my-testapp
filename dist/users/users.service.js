@@ -23,13 +23,13 @@ let UsersService = class UsersService {
     }
     async create(userDto) {
         const createdUser = new this.userModel(userDto);
-        return createdUser.save();
+        return await createdUser.save();
     }
     async findAll() {
-        return this.userModel.find().exec();
+        return await this.userModel.find().exec();
     }
     async findById(id) {
-        return this.userModel.findById(id).exec();
+        return await this.userModel.findById(id).exec();
     }
     async updateUser(id, updateUserDto) {
         const user = await this.userModel.findById(id);
@@ -37,7 +37,7 @@ let UsersService = class UsersService {
             throw new common_1.NotFoundException(`User with id ${id} not found`);
         }
         Object.assign(user, updateUserDto);
-        return user.save();
+        return await user.save();
     }
     async deleteUser(id) {
         const user = await this.userModel.findById(id);
