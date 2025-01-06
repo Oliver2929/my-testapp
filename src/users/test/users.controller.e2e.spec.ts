@@ -3,11 +3,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
+import { AppModule } from '../../app.module';
 import { UsersService } from '../users.service';
 import { UsersController } from '../users.controller';
 import { UsersModule } from '../users.module';
 import { response } from 'express';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 jest.setTimeout(100000);
 
@@ -20,20 +20,7 @@ describe('UsersController (e2e)', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        UsersModule,
-        ConfigModule.forRoot({
-          envFilePath: '.env.test',
-          isGlobal: true,
-        }),
-        MongooseModule.forRootAsync({
-          imports: [ConfigModule],
-          useFactory: async (configService: ConfigService) => ({
-            uri: configService.get<string>('MONGO_URI'),
-          }),
-          inject: [ConfigService],
-        }),
-      ],
+      imports: [UsersModule, AppModule],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
