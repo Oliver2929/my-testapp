@@ -1,13 +1,21 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://fowosereademola:1234@olicluster.c76hn.mongodb.net/?retryWrites=true&w=majority&appName=OliCluster',
-    ),
-    UsersModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env.test',
+      isGlobal: true,
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
 })
 export class AppModule {}
